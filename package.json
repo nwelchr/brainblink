@@ -1,0 +1,32 @@
+{
+  "name": "brainblink",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "concurrently \"npm run start-react\" \"npm run start-electron\"",
+    "start-react": "webpack serve --mode development",
+    "start-electron": "wait-on http://localhost:8080 && electron .",
+    "build": "webpack --mode production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "babel-loader": "^9.2.1",
+    "concurrently": "^9.1.2",
+    "electron": "^33.2.1",
+    "html-webpack-plugin": "^5.6.3",
+    "wait-on": "^8.0.1",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
