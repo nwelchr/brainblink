@@ -17,6 +17,10 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader", "postcss-loader"],
+      },
     ],
   },
   resolve: {
@@ -28,7 +32,12 @@ module.exports = {
     }),
   ],
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    static: {
+      directory: path.join(__dirname, "dist"),
+    },
     hot: true,
+    port: 8080, // Ensure this matches the port in your start-electron script
+    // Optional: If you're using React Router or need history API fallback
+    historyApiFallback: true,
   },
 };

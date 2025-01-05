@@ -1,4 +1,11 @@
-// main.js
+if (process.env.NODE_ENV === "development") {
+  try {
+    require("electron-reloader")(module);
+  } catch (err) {
+    console.error("Failed to load electron-reloader:", err);
+  }
+}
+
 const { app, BrowserWindow, Tray, Menu } = require("electron");
 const path = require("path");
 
@@ -15,7 +22,6 @@ const createWindow = () => {
     },
   });
 
-  // Load the React app from the Webpack Dev Server
   win.loadURL("http://localhost:8080");
 
   win.on("closed", () => {
@@ -28,34 +34,29 @@ const createTray = () => {
   tray.setToolTip("BrainBlink");
 
   const contextMenu = Menu.buildFromTemplate([
-    { label: "Show App", click: () => createWindow() },
+    {
+      label: "Open",
+      click: () => {
+        if (win) {
+          win.show();
+          win.focus();
+        } else {
+          createWindow();
+        }
+      },
+    },
     { label: "Quit", click: () => app.quit() },
   ]);
 
   tray.setContextMenu(contextMenu);
-
-  tray.on("click", () => {
-    if (win) {
-      win.show();
-      win.focus();
-    } else {
-      createWindow();
-    }
-  });
 };
 
 app.whenReady().then(() => {
   createTray();
 });
 
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    // app.quit();
-  }
-});
-
 app.on("activate", () => {
-  if (win === null) {
+  if (!win) {
     createWindow();
   }
 });

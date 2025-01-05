@@ -1,11 +1,13 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
+import "./globals.css";
 
 const App = () => (
   <div>
-    <h1>Welcome to BrainBlink</h1>
-    <p>Your journey to smarter thinking starts here.</p>
+    <h1 className="text-gray-300">Welcome to BrainBlink</h1>
+    <p>Your journey tos smarter thinking stsarts here.</p>
   </div>
 );
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
